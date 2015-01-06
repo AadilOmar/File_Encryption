@@ -14,7 +14,7 @@ public class Encryptor {
 	String newText="";
 	
 	ArrayList<String> listArray = new ArrayList();
-	char[] array = new char[56];
+	char[] array = new char[55];
 	
 	//first 26 are letters
 	//next 10 are numbers 0-9
@@ -55,6 +55,8 @@ public class Encryptor {
 		String structureString;
 		
 		for(int x=0;x<test.length();x++,xcode++){ 
+			//System.out.println("textChar "+test.charAt(x)+" passchar "+code.charAt(xcode));
+			
 			if(xcode==code.length()){			
 				xcode=0;
 			}
@@ -62,33 +64,16 @@ public class Encryptor {
 			codeLetter=code.charAt(xcode)+"";
 			
 			//bufs are indexof text/codeletters
-			buf1=listArray.indexOf(textLetter);
-			buf2=listArray.indexOf(codeLetter);
-//
-//
-//			System.out.println("textLetter: "+textLetter);
-//			System.out.println("codeLetter: " +codeLetter);
-//
-//			
-//			
-			
-			
-//			for(int t=0;t<listArray.size();t++){
-//				if(x<10){
-//					System.out.print(listArray.get(t)+" ");
-//				}
-//				else{
-//					System.out.print(listArray.get(t) + "  ");
-//				}
-//			}
-//			System.out.println();
+			buf1=listArray.indexOf(textLetter)+1;
+			buf2=listArray.indexOf(codeLetter)+1;
+
 
 			structureIndex=buf1+buf2;
 			
 			System.out.print("buf "+buf1+" ");
 			System.out.println("buf "+buf2);
 			
-			if(structureIndex>array.length){
+			if(structureIndex>array.length-1){
 				structureIndex=structureIndex-array.length;
 			}
 			System.out.println("structureindex "+structureIndex);
@@ -96,17 +81,12 @@ public class Encryptor {
 			structureString=listArray.get(structureIndex);
 			newText+=structureString;
 			
-//			for(int y=0;y<array.length;y++){
-//				if(codeLetter==array[y]){
-//					structureIndex=y;
-//				}
-//			}
 		}
 		System.out.println("encrypted code: "+newText);
 		return newText;
 	}
 	
-	public void decrypt(String text, String code1){
+	public String decrypt(String text, String code1){
 		this.newText="";
 		this.code=code1;
 		this.oldText=text;
@@ -129,33 +109,15 @@ public class Encryptor {
 			codeLetter=code.charAt(xcode)+"";
 			
 			//bufs are indexof text/codeletters
-			buftxt=listArray.indexOf(textLetter);
-			bufcode=listArray.indexOf(codeLetter);
-//
-//
-//			System.out.println("textLetter: "+textLetter);
-//			System.out.println("codeLetter: " +codeLetter);
-//
-//			
-//			
-			
-			
-//			for(int t=0;t<listArray.size();t++){
-//				if(x<10){
-//					System.out.print(listArray.get(t)+" ");
-//				}
-//				else{
-//					System.out.print(listArray.get(t) + "  ");
-//				}
-//			}
-//			System.out.println();
+			buftxt=listArray.indexOf(textLetter)+1;
+			bufcode=listArray.indexOf(codeLetter)+1;
 
 			structureIndex=buftxt-bufcode;
 			
 			System.out.print("buf "+buftxt+" ");
 			System.out.println("buf "+bufcode);
 			
-			if(structureIndex<0){
+			if(structureIndex<1){
 				//structureIndex=array.length;
 				newText+=" ";
 			}
@@ -166,14 +128,9 @@ public class Encryptor {
 				newText+=structureString;
 			}
 			
-//			for(int y=0;y<array.length;y++){
-//				if(codeLetter==array[y]){
-//					structureIndex=y;
-//				}
-//			}
 		}
 		System.out.println("DECRYPTED code: "+newText);
-		
+		return newText;
 		
 	}
 	
@@ -209,23 +166,11 @@ public class Encryptor {
 		listArray.add(">");
 		listArray.add("?");
 
+		for(int x=0;x<listArray.size();x++){
+			System.out.println(listArray.get(x)+" "+listArray.size());
+		}
 
 
-//
-//		for(int x=0;x<listArray.size();x++){
-//			if(x<10){
-//				System.out.print(listArray.get(x)+" ");
-//			}
-//			else{
-//				System.out.print(listArray.get(x) + "  ");
-//			}
-//		}
-//		System.out.println();
-//		for(int x=0;x<listArray.size();x++){
-//			System.out.print(x+" ");
-//		}
-//		System.out.println();
-//		System.out.println();
 		
 		
 	}

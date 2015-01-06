@@ -41,6 +41,7 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -67,6 +68,8 @@ public class GUI  {
 	static JButton decryptButton = new JButton();
 	static Object lock;
 	private static String totalText;
+	static FileReader reader;
+	static File file;
 	
 	public GUI(){
 		
@@ -83,72 +86,38 @@ public class GUI  {
 			}
 		}
 		
-		Runnable runnable = new Runnable() {
 			
-			@Override
-			public void run() {
-				FileReader reader = new FileReader(toEncrypt, frame);
-				try {
-					totalText=reader.readFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}				
+			reader = new FileReader(toEncrypt, frame);
+			try {
+				totalText=reader.readFile();
+				file = reader.getFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		};
-		Thread thread = new Thread(runnable);
-		thread.start();
 		graphics.createPasswordScreen();
-		
-		
-
-		
-//		CircularStructure structure = new CircularStructure();
-//		System.out.println("Type the code to encrypt text");
-//		String code1=scan.nextLine();
-//		String encryptedCode=structure.encrypt(test,code1);
-//		System.out.println(" The text is " +encryptedCode + "Type the code to decrypt text");
-//		String code2=scan.nextLine();
-//		structure.decrypt(encryptedCode,code2);
-		
-	}
 	
-	public void doWork(){
-		
-	}
 	
+	}
 	public void createPasswordScreen(){
-		
+		System.out.println("IN CREATEPASSSCREEN");
 		GridBagConstraints c= new GridBagConstraints();
-		JPanel passwordPanel=new JPanel();
-		passwordPanel.setBackground(Color.yellow);
-		JPanel addressPanel=new JPanel();
-		addressPanel.setBackground(Color.red);
-		JPanel TextPanel=new JPanel();
-		TextPanel.setBackground(Color.gray);
+		JPanel passwordPanel = createPasswordPanel();
 		
 		frame.setFocusable(true);
 		frame.getContentPane().removeAll();
 		frame.setLayout(new GridLayout());
-		c.ipadx=0;
-		
-		c.gridx=0;
-		c.gridy=0;
-		c.weighty=.5;
 		frame.add(passwordPanel,c);
-		c.gridx=4;
-		c.gridy=4;
-		frame.add(addressPanel,c);
-		c.gridx=1;
-		c.gridy=3;
-		c.weighty=.5;
-		frame.add(TextPanel,c);
 		frame.revalidate();
 		frame.repaint();
 		
+	}
+	public JPanel createPasswordPanel(){
+		System.out.println("EARLY TOTAL "+totalText);
+		PasswordPanel passwordPanel = new PasswordPanel(frame,totalText,file);
+		return passwordPanel;
 		
 	}
-	
 	public void createMainScreen() throws IOException{
 		GridBagConstraints c = new GridBagConstraints();
 		
